@@ -1,12 +1,13 @@
 import useSWR from "swr";
 import { getFacilitators } from "../api/facilitators";
+import type { FacilitatorSortKey } from "../api/facilitators";
 import type { Facilitator } from "../types";
 
 const PAGE_SIZE = 20;
 
 export type UseFacilitatorsParams = {
   page: number;
-  sort?: "name";
+  sort?: FacilitatorSortKey;
   order?: "asc" | "desc";
   search?: string;
 };

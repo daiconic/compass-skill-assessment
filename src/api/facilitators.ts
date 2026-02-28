@@ -2,10 +2,12 @@ import { ApiError } from "./errors";
 
 const FACILITATORS_ENDPOINT = "/api/facilitators";
 
+export type FacilitatorSortKey = "name" | "loginId";
+
 export type GetFacilitatorsParams = {
   page?: number;
   limit?: number;
-  sort?: "name";
+  sort?: FacilitatorSortKey;
   order?: "asc" | "desc";
   search?: string;
 };

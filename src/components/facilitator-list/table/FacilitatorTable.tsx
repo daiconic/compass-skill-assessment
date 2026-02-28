@@ -1,16 +1,34 @@
+import type { FacilitatorSortKey } from "../../../api/facilitators";
 import type { Facilitator } from "../../../types";
+import angleDownIcon from "../../../assets/icon-angle-down.svg";
 import styles from "./FacilitatorTable.module.css";
 
 type FacilitatorTableProps = {
   facilitators: Facilitator[];
+  sortKey?: FacilitatorSortKey;
+  sortOrder?: "asc" | "desc";
+  onSortChange?: (column: FacilitatorSortKey) => void;
 };
 
-export function FacilitatorTable({ facilitators }: FacilitatorTableProps) {
+export function FacilitatorTable({
+  facilitators,
+  sortKey,
+  sortOrder,
+  onSortChange,
+}: FacilitatorTableProps) {
   return (
     <div className={styles.tableWrap}>
       <table>
+        <colgroup>
+          <col className={styles.nameColumn} />
+          <col className={styles.loginIdColumn} />
+        </colgroup>
         <thead>
-          <TableHeaderRow />
+          <TableHeaderRow
+            sortKey={sortKey}
+            sortOrder={sortOrder}
+            onSortChange={onSortChange}
+          />
         </thead>
         <tbody>
           {facilitators.map((facilitator) => (
@@ -22,12 +40,83 @@ export function FacilitatorTable({ facilitators }: FacilitatorTableProps) {
   );
 }
 
-function TableHeaderRow() {
+type TableHeaderRowProps = Pick<
+  FacilitatorTableProps,
+  "sortKey" | "sortOrder" | "onSortChange"
+>;
+
+function TableHeaderRow({
+  sortKey,
+  sortOrder,
+  onSortChange,
+}: TableHeaderRowProps) {
   return (
     <tr>
-      <th>氏名</th>
-      <th>ログインID</th>
+      <th>
+        <HeaderButton
+          label="名前"
+          column="name"
+          activeSortKey={sortKey}
+          activeSortOrder={sortOrder}
+          onClick={onSortChange}
+        />
+      </th>
+      <th>
+        <HeaderButton
+          label="ログインID"
+          column="loginId"
+          activeSortKey={sortKey}
+          activeSortOrder={sortOrder}
+          onClick={onSortChange}
+        />
+      </th>
     </tr>
+  );
+}
+
+type HeaderButtonProps = {
+  label: string;
+  column: FacilitatorSortKey;
+  activeSortKey?: FacilitatorSortKey;
+  activeSortOrder?: "asc" | "desc";
+  onClick?: (column: FacilitatorSortKey) => void;
+};
+
+function HeaderButton({
+  label,
+  column,
+  activeSortKey,
+  activeSortOrder,
+  onClick,
+}: HeaderButtonProps) {
+  const isActive = activeSortKey === column;
+  const headerButtonClassName = [
+    styles.headerButton,
+    isActive ? styles.headerButtonActive : styles.headerButtonInactive,
+  ].join(" ");
+  const sortIconClassName = [
+    styles.sortIcon,
+    !isActive
+      ? styles.sortIconNeutral
+      : activeSortOrder === "asc"
+        ? styles.sortIconAsc
+        : styles.sortIconDesc,
+  ].join(" ");
+
+  return (
+    <button
+      type="button"
+      className={headerButtonClassName}
+      onClick={() => onClick?.(column)}
+    >
+      <span className={styles.headerLabel}>{label}</span>
+      <img
+        className={sortIconClassName}
+        src={angleDownIcon}
+        alt=""
+        aria-hidden="true"
+      />
+    </button>
   );
 }
 

@@ -1,17 +1,23 @@
 import type { SubmitEvent } from "react";
 import { useState } from "react";
+import type { FacilitatorSortKey } from "../../api/facilitators";
 import styles from "./FacilitatorListContent.module.css";
 import { FacilitatorListHeader } from "./header/FacilitatorListHeader";
 import { FacilitatorPagination } from "./pagination/FacilitatorPagination";
+import { getNextSortState } from "./sortState";
 import { FacilitatorTable } from "./table/FacilitatorTable";
 import { useFacilitators } from "../../hooks/useFacilitators";
 
 export function FacilitatorListContent() {
   const [currentPage, setCurrentPage] = useState(1);
   const [appliedSearch, setAppliedSearch] = useState("");
+  const [sortKey, setSortKey] = useState<FacilitatorSortKey | undefined>();
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc" | undefined>();
   const facilitators = useFacilitators({
     page: currentPage,
     search: appliedSearch,
+    sort: sortKey,
+    order: sortOrder,
   });
 
   const totalPages =
@@ -29,6 +35,20 @@ export function FacilitatorListContent() {
     setAppliedSearch(search);
   }
 
+  function handleSortChange(column: FacilitatorSortKey) {
+    const nextSortState = getNextSortState(
+      {
+        sortKey,
+        sortOrder,
+      },
+      column,
+    );
+
+    setCurrentPage(1);
+    setSortKey(nextSortState.sortKey);
+    setSortOrder(nextSortState.sortOrder);
+  }
+
   return (
     <main className={styles.content}>
       <FacilitatorListHeader
@@ -42,7 +62,12 @@ export function FacilitatorListContent() {
       ) : facilitators.facilitators.length === 0 ? (
         <p className={styles.statusMessage}>表示できる先生がありません。</p>
       ) : (
-        <FacilitatorTable facilitators={facilitators.facilitators} />
+        <FacilitatorTable
+          facilitators={facilitators.facilitators}
+          sortKey={sortKey}
+          sortOrder={sortOrder}
+          onSortChange={handleSortChange}
+        />
       )}
       <FacilitatorPagination
         currentPage={currentPage}
