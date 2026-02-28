@@ -1,7 +1,6 @@
 import { ApiError } from "./errors";
 
-const FACILITATORS_ENDPOINT =
-  "https://frontend-assessment-630736206587.asia-northeast1.run.app/api/facilitators";
+const FACILITATORS_ENDPOINT = "/api/facilitators";
 
 export type GetFacilitatorsParams = {
   page?: number;
