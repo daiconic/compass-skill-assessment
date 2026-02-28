@@ -1,0 +1,38 @@
+.header {
+    height: 56px;
+    background: rgb(36, 71, 59);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 0 24px;
+}
+
+.headerLogo {
+    display: block;
+    width: 276px;
+    max-width: 100%;
+    height: auto;
+}
+
+.headerCenter {
+    border: 1px solid #fff;
+    border-radius: 4px;
+    padding: 6px 16px;
+    font-size: 16px;
+    line-height: 1;
+}
+
+.account {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 144px;
+    font-size: 16px;
+}
+
+.accountIcon {
+    font-size: 20px;
+    line-height: 1;
+}

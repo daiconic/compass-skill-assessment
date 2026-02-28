@@ -1,0 +1,32 @@
+.pager {
+  margin-top: 24px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.pagerBtn {
+  width: 24px;
+  height: 24px;
+  border: 0;
+  border-radius: 4px;
+  background: rgb(233, 236, 235);
+  color: #212423;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.pagerBtn:first-child,
+.pagerBtn:last-child {
+  width: 48px;
+}
+
+.selected {
+  background: rgb(36, 71, 59);
+  color: #fff;
+}
+
+.disabled {
+  opacity: 0.3;
+  cursor: default;
+}
