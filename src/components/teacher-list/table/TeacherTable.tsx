@@ -27,7 +27,6 @@ function TableHeaderRow() {
     <tr>
       <th>氏名</th>
       <th>ログインID</th>
-      <th>操作</th>
     </tr>
   );
 }
