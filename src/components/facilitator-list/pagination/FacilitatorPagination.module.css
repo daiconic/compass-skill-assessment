@@ -26,7 +26,7 @@
   color: #fff;
 }
 
-.disabled {
+.pagerBtn:disabled {
   opacity: 0.3;
   cursor: default;
 }

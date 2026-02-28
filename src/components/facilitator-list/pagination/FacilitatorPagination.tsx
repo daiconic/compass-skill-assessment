@@ -5,7 +5,7 @@ type FacilitatorPaginationProps = {
   totalPages: number;
   hasPrev: boolean;
   hasNext: boolean;
-  onPageChange?: (page: number) => void;
+  onPageChange: (page: number) => void;
 };
 
 export function FacilitatorPagination({
@@ -21,9 +21,9 @@ export function FacilitatorPagination({
     <nav className={styles.pager} aria-label="ページネーション">
       <button
         type="button"
-        className={`${styles.pagerBtn} ${!hasPrev ? styles.disabled : ""}`}
-        aria-disabled={!hasPrev}
-        onClick={() => hasPrev && onPageChange?.(currentPage - 1)}
+        className={styles.pagerBtn}
+        disabled={!hasPrev}
+        onClick={() => onPageChange(currentPage - 1)}
       >
         ←
       </button>
@@ -32,16 +32,16 @@ export function FacilitatorPagination({
           key={page}
           type="button"
           className={`${styles.pagerBtn} ${currentPage === page ? styles.selected : ""}`}
-          onClick={() => onPageChange?.(page)}
+          onClick={() => onPageChange(page)}
         >
           {page}
         </button>
       ))}
       <button
         type="button"
-        className={`${styles.pagerBtn} ${!hasNext ? styles.disabled : ""}`}
-        aria-disabled={!hasNext}
-        onClick={() => hasNext && onPageChange?.(currentPage + 1)}
+        className={styles.pagerBtn}
+        disabled={!hasNext}
+        onClick={() => onPageChange(currentPage + 1)}
       >
         →
       </button>
