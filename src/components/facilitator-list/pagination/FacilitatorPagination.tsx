@@ -1,6 +1,6 @@
-import styles from "./TeacherPagination.module.css";
+import styles from "./FacilitatorPagination.module.css";
 
-type TeacherPaginationProps = {
+type FacilitatorPaginationProps = {
   currentPage: number;
   totalPages: number;
   hasPrev: boolean;
@@ -8,13 +8,13 @@ type TeacherPaginationProps = {
   onPageChange?: (page: number) => void;
 };
 
-export function TeacherPagination({
+export function FacilitatorPagination({
   currentPage,
   totalPages,
   hasPrev,
   hasNext,
   onPageChange,
-}: TeacherPaginationProps) {
+}: FacilitatorPaginationProps) {
   const pages = Array.from({ length: totalPages }, (_, index) => index + 1);
 
   return (

@@ -1,11 +1,14 @@
-import styles from "./TeacherListHeader.module.css";
+import styles from "./FacilitatorListHeader.module.css";
 
-type TeacherListHeaderProps = {
+type FacilitatorListHeaderProps = {
   title: string;
   onCreate?: () => void;
 };
 
-export function TeacherListHeader({ title, onCreate }: TeacherListHeaderProps) {
+export function FacilitatorListHeader({
+  title,
+  onCreate,
+}: FacilitatorListHeaderProps) {
   return (
     <div className={styles.titleRow}>
       <h1>{title}</h1>

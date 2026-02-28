@@ -1,11 +1,11 @@
 import { Header } from "./components/header/Header";
-import { TeacherListContent } from "./components/teacher-list/TeacherListContent";
+import { FacilitatorListContent } from "./components/facilitator-list/FacilitatorListContent";
 
 function App() {
   return (
     <div className="page">
       <Header />
-      <TeacherListContent />
+      <FacilitatorListContent />
     </div>
   );
 }

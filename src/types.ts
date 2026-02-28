@@ -1,4 +1,4 @@
-export type Teacher = {
+export type Facilitator = {
   id: number;
   name: string;
   loginId: string;
