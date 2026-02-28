@@ -1,20 +1,20 @@
+import type { SubmitEvent } from "react";
 import styles from "./FacilitatorListHeader.module.css";
+import { FacilitatorSearchForm } from "./FacilitatorSearchForm";
 
 type FacilitatorListHeaderProps = {
   title: string;
-  onCreate?: () => void;
+  onSearchSubmit: (event: SubmitEvent<HTMLFormElement>) => void;
 };
 
 export function FacilitatorListHeader({
   title,
-  onCreate,
+  onSearchSubmit,
 }: FacilitatorListHeaderProps) {
   return (
     <div className={styles.titleRow}>
       <h1>{title}</h1>
-      <button type="button" className={styles.addButton} onClick={onCreate}>
-        新規作成
-      </button>
+      <FacilitatorSearchForm onSubmit={onSearchSubmit} />
     </div>
   );
 }
