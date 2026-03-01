@@ -3,7 +3,7 @@ import { getFacilitators } from "../api/facilitators";
 import type { FacilitatorSort } from "../components/facilitator-list/sortState";
 import type { Facilitator } from "../types";
 
-const PAGE_SIZE = 20;
+export const FACILITATOR_PAGE_SIZE = 20;
 
 export type UseFacilitatorsParams = {
   page: number;
@@ -22,6 +22,7 @@ export type UseFacilitatorsResult =
   | {
       status: "success";
       facilitators: Facilitator[];
+      totalCount: number;
       totalPages: number;
     };
 
@@ -38,7 +39,7 @@ export function useFacilitators({
     () =>
       getFacilitators({
         page,
-        limit: PAGE_SIZE,
+        limit: FACILITATOR_PAGE_SIZE,
         sort: sort?.key,
         order: sort?.order,
         search,
@@ -62,6 +63,7 @@ export function useFacilitators({
   return {
     status: "success",
     facilitators: data!.data,
-    totalPages: Math.max(1, Math.ceil(data!.totalCount / PAGE_SIZE)),
+    totalCount: data!.totalCount,
+    totalPages: Math.max(1, Math.ceil(data!.totalCount / FACILITATOR_PAGE_SIZE)),
   };
 }

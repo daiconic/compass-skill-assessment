@@ -5,7 +5,10 @@ import { FacilitatorPagination } from "./pagination/FacilitatorPagination";
 import { getNextSortState } from "./sortState";
 import { FacilitatorTable } from "./table/FacilitatorTable";
 import type { UseFacilitatorSearchParamsResult } from "./useFacilitatorSearchParams";
-import { useFacilitators } from "../../hooks/useFacilitators";
+import {
+  FACILITATOR_PAGE_SIZE,
+  useFacilitators,
+} from "../../hooks/useFacilitators";
 
 type FacilitatorListContentProps = Omit<
   UseFacilitatorSearchParamsResult,
@@ -45,6 +48,9 @@ export function FacilitatorListContent({
     return <p className={styles.statusMessage}>該当するデータはありません</p>;
   }
 
+  const firstVisibleItem = (page - 1) * FACILITATOR_PAGE_SIZE + 1;
+  const lastVisibleItem = firstVisibleItem + facilitators.facilitators.length - 1;
+
   return (
     <>
       <FacilitatorTable
@@ -56,6 +62,9 @@ export function FacilitatorListContent({
       <FacilitatorPagination
         currentPage={page}
         totalPages={facilitators.totalPages}
+        totalCount={facilitators.totalCount}
+        firstVisibleItem={firstVisibleItem}
+        lastVisibleItem={lastVisibleItem}
         hasPrev={page > 1}
         hasNext={page < facilitators.totalPages}
         onPageChange={(nextPage) => {

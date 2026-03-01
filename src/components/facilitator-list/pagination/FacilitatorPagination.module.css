@@ -1,6 +1,20 @@
 .pager {
     margin-top: 24px;
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.summary {
+    margin: 0;
+    color: #212423;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.controls {
+    display: flex;
     justify-content: flex-end;
     gap: 8px;
 }

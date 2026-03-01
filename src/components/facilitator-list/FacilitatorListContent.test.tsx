@@ -6,6 +6,7 @@ import { FacilitatorListContent } from "./FacilitatorListContent";
 import { useFacilitators } from "../../hooks/useFacilitators";
 
 vi.mock("../../hooks/useFacilitators", () => ({
+  FACILITATOR_PAGE_SIZE: 20,
   useFacilitators: vi.fn(),
 }));
 
@@ -53,6 +54,7 @@ describe("FacilitatorListContent", () => {
     mockedUseFacilitators.mockReturnValue({
       status: "success",
       facilitators: [],
+      totalCount: 0,
       totalPages: 3,
     });
 
@@ -72,12 +74,14 @@ describe("FacilitatorListContent", () => {
           loginId: "yamada",
         },
       ],
+      totalCount: 21,
       totalPages: 3,
     });
 
     render(<FacilitatorListContent {...defaultProps} />);
 
     expect(screen.getByText("山田 太郎")).toBeTruthy();
+    expect(screen.getByText("21件中 1〜1件を表示")).toBeTruthy();
     expect(screen.getByRole("navigation", { name: "ページネーション" })).toBeTruthy();
   });
 });

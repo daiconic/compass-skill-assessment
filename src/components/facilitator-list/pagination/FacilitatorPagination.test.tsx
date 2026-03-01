@@ -8,6 +8,9 @@ import { FacilitatorPagination } from "./FacilitatorPagination";
 const defaultProps: ComponentProps<typeof FacilitatorPagination> = {
   currentPage: 3,
   totalPages: 5,
+  totalCount: 120,
+  firstVisibleItem: 41,
+  lastVisibleItem: 60,
   hasPrev: true,
   hasNext: true,
   onPageChange: vi.fn(),
@@ -56,6 +59,16 @@ describe("FacilitatorPagination", () => {
     );
 
     expect(screen.getByRole("navigation", { name: "ページネーション" })).toBeTruthy();
+  });
+
+  it("表示中件数の文言を表示する", () => {
+    render(
+      <FacilitatorPagination
+        {...defaultProps}
+      />,
+    );
+
+    expect(screen.getByText("120件中 41〜60件を表示")).toBeTruthy();
   });
 
   it("hasPrev=false のとき前へボタンが disabled になる", () => {
