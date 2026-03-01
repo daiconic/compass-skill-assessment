@@ -47,8 +47,12 @@ export function FacilitatorTable({
 function TableRow({ facilitator }: { facilitator: Facilitator }) {
   return (
     <tr>
-      <td>{facilitator.name}</td>
-      <td>{facilitator.loginId}</td>
+      <td>
+        <span className={styles.cellText}>{facilitator.name}</span>
+      </td>
+      <td>
+        <span className={styles.cellText}>{facilitator.loginId}</span>
+      </td>
       <td />
     </tr>
   );

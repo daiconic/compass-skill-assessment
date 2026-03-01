@@ -6,6 +6,7 @@
 
 .tableWrap table {
     width: 100%;
+    table-layout: fixed;
     border-collapse: collapse;
 }
 
@@ -30,6 +31,14 @@
     font-size: 14px;
     padding: 14px 16px;
     border-top: 1px solid #e3e8e6;
+}
+
+.cellText {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .tableWrap tbody tr:nth-child(odd) td {
