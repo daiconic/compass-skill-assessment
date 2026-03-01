@@ -1,31 +1,29 @@
-import type { ReactNode, SubmitEvent } from "react";
 import type { SortKey } from "../../types";
 import styles from "./FacilitatorListContent.module.css";
-import { FacilitatorListHeader } from "./header/FacilitatorListHeader";
 import { FacilitatorLoadingOverlay } from "./loading/FacilitatorLoadingOverlay";
 import { FacilitatorPagination } from "./pagination/FacilitatorPagination";
 import { getNextSortState } from "./sortState";
 import { FacilitatorTable } from "./table/FacilitatorTable";
+import type { UseFacilitatorSearchParamsResult } from "./useFacilitatorSearchParams";
 import { useFacilitators } from "../../hooks/useFacilitators";
-import { useFacilitatorSearchParams } from "./useFacilitatorSearchParams";
 
-export function FacilitatorListContent() {
-  const { page, search, sort, setPage, setSearch, setSort } =
-    useFacilitatorSearchParams();
+type FacilitatorListContentProps = Omit<
+  UseFacilitatorSearchParamsResult,
+  "setSearch"
+>;
+
+export function FacilitatorListContent({
+  page,
+  setPage,
+  sort,
+  setSort,
+  search,
+}: FacilitatorListContentProps) {
   const facilitators = useFacilitators({
     page,
     search,
     sort,
   });
-
-  function handleSearchSubmit(event: SubmitEvent<HTMLFormElement>) {
-    event.preventDefault();
-
-    const formData = new FormData(event.currentTarget);
-    const nextSearch = String(formData.get("search") ?? "");
-
-    void setSearch(nextSearch);
-  }
 
   function handleSortChange(column: SortKey) {
     const nextSortState = getNextSortState(sort, column);
@@ -34,40 +32,21 @@ export function FacilitatorListContent() {
   }
 
   if (facilitators.status === "loading") {
-    return (
-      <FacilitatorListLayout
-        search={search}
-        onSearchSubmit={handleSearchSubmit}
-      >
-        <FacilitatorLoadingOverlay />
-      </FacilitatorListLayout>
-    );
+    return <FacilitatorLoadingOverlay />;
   }
 
   if (facilitators.status === "error") {
     return (
-      <FacilitatorListLayout
-        search={search}
-        onSearchSubmit={handleSearchSubmit}
-      >
-        <p className={styles.statusMessage}>先生一覧の取得に失敗しました。</p>
-      </FacilitatorListLayout>
+      <p className={styles.statusMessage}>先生一覧の取得に失敗しました。</p>
     );
   }
 
   if (facilitators.facilitators.length === 0) {
-    return (
-      <FacilitatorListLayout
-        search={search}
-        onSearchSubmit={handleSearchSubmit}
-      >
-        <p className={styles.statusMessage}>該当するデータはありません</p>
-      </FacilitatorListLayout>
-    );
+    return <p className={styles.statusMessage}>該当するデータはありません</p>;
   }
 
   return (
-    <FacilitatorListLayout search={search} onSearchSubmit={handleSearchSubmit}>
+    <>
       <FacilitatorTable
         facilitators={facilitators.facilitators}
         sortKey={sort?.key}
@@ -83,29 +62,6 @@ export function FacilitatorListContent() {
           void setPage(nextPage);
         }}
       />
-    </FacilitatorListLayout>
-  );
-}
-
-type FacilitatorListLayoutProps = {
-  search: string;
-  onSearchSubmit: (event: SubmitEvent<HTMLFormElement>) => void;
-  children: ReactNode;
-};
-
-function FacilitatorListLayout({
-  search,
-  onSearchSubmit,
-  children,
-}: FacilitatorListLayoutProps) {
-  return (
-    <main className={styles.content}>
-      <FacilitatorListHeader
-        title="先生一覧"
-        searchDefaultValue={search}
-        onSearchSubmit={onSearchSubmit}
-      />
-      {children}
-    </main>
+    </>
   );
 }
