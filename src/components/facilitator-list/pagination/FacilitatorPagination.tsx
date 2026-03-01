@@ -1,3 +1,4 @@
+import angleDownIcon from "../../../assets/icon-angle-down.svg";
 import styles from "./FacilitatorPagination.module.css";
 
 type FacilitatorPaginationProps = {
@@ -21,11 +22,15 @@ export function FacilitatorPagination({
     <nav className={styles.pager} aria-label="ページネーション">
       <button
         type="button"
-        className={styles.pagerBtn}
+        className={`${styles.pagerBtn} ${styles.navBtn}`}
+        aria-label="前へ"
         disabled={!hasPrev}
         onClick={() => onPageChange(currentPage - 1)}
       >
-        ←
+        <img
+          className={`${styles.chevronIcon} ${styles.chevronLeft}`}
+          src={angleDownIcon}
+        />
       </button>
       {pages.map((page) => (
         <button
@@ -39,11 +44,15 @@ export function FacilitatorPagination({
       ))}
       <button
         type="button"
-        className={styles.pagerBtn}
+        className={`${styles.pagerBtn} ${styles.navBtn}`}
+        aria-label="次へ"
         disabled={!hasNext}
         onClick={() => onPageChange(currentPage + 1)}
       >
-        →
+        <img
+          className={`${styles.chevronIcon} ${styles.chevronRight}`}
+          src={angleDownIcon}
+        />
       </button>
     </nav>
   );

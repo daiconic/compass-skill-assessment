@@ -25,6 +25,7 @@ export function FacilitatorTable({
         <colgroup>
           <col className={styles.nameColumn} />
           <col className={styles.loginIdColumn} />
+          <col className={styles.emptyColumn} />
         </colgroup>
         <thead>
           <FacilitatorTableHeader
@@ -48,6 +49,7 @@ function TableRow({ facilitator }: { facilitator: Facilitator }) {
     <tr>
       <td>{facilitator.name}</td>
       <td>{facilitator.loginId}</td>
+      <td />
     </tr>
   );
 }

@@ -1,32 +1,48 @@
 .pager {
-  margin-top: 24px;
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
+    margin-top: 24px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
 }
 
 .pagerBtn {
-  width: 24px;
-  height: 24px;
-  border: 0;
-  border-radius: 4px;
-  background: rgb(233, 236, 235);
-  color: #212423;
-  font-size: 12px;
-  cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border: 0;
+    border-radius: 4px;
+    background: rgb(233, 236, 235);
+    color: #212423;
+    font-size: 12px;
+    cursor: pointer;
 }
 
-.pagerBtn:first-child,
-.pagerBtn:last-child {
-  width: 48px;
+.navBtn {
+    width: 48px;
 }
 
 .selected {
-  background: rgb(36, 71, 59);
-  color: #fff;
+    background: var(--color-primary);
+    color: #fff;
+}
+
+.chevronIcon {
+    width: 16px;
+    height: 16px;
+    filter: brightness(0) saturate(100%) opacity(0.45);
+}
+
+.chevronLeft {
+    transform: rotate(90deg);
+}
+
+.chevronRight {
+    transform: rotate(-90deg);
 }
 
 .pagerBtn:disabled {
-  opacity: 0.3;
-  cursor: default;
+    opacity: 0.3;
+    cursor: default;
 }

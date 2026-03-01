@@ -33,6 +33,12 @@ export function FacilitatorTableHeader({
           onClick={onSortChange}
         />
       </th>
+      <th>
+        <div
+          className={`${styles.headerButton} ${styles.headerButtonInactive}`}
+          aria-hidden="true"
+        />
+      </th>
     </tr>
   );
 }

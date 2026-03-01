@@ -16,7 +16,6 @@ export function FacilitatorListLayout({
   return (
     <main className={styles.content}>
       <FacilitatorListHeader
-        title="先生一覧"
         searchDefaultValue={search}
         onSearchSubmit={onSearchSubmit}
       />

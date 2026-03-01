@@ -22,25 +22,19 @@ export function FacilitatorSearchForm({
   }
 
   return (
-    <div className={styles.searchRow}>
-      <form className={styles.searchForm} onSubmit={handleSubmit}>
-        <div className={styles.searchField}>
-          <input
-            className={styles.searchInput}
-            type="text"
-            name="search"
-            placeholder="名前、ログインIDで検索"
-            defaultValue={defaultValue}
-          />
-          <button
-            type="submit"
-            className={styles.searchButton}
-            aria-label="検索"
-          >
-            <img className={styles.searchIcon} src={searchIcon} alt="" />
-          </button>
-        </div>
-      </form>
-    </div>
+    <form className={styles.searchForm} onSubmit={handleSubmit}>
+      <div className={styles.searchField}>
+        <input
+          className={styles.searchInput}
+          type="text"
+          name="search"
+          placeholder="名前、ログインIDで検索"
+          defaultValue={defaultValue}
+        />
+        <button type="submit" className={styles.searchButton} aria-label="検索">
+          <img className={styles.searchIcon} src={searchIcon} alt="" />
+        </button>
+      </div>
+    </form>
   );
 }

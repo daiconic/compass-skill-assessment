@@ -61,25 +61,25 @@ describe("FacilitatorPagination", () => {
   it("hasPrev=false のとき前へボタンが disabled になる", () => {
     render(<FacilitatorPagination {...defaultProps} hasPrev={false} />);
 
-    expect((screen.getByRole("button", { name: "←" }) as HTMLButtonElement).disabled).toBe(true);
+    expect((screen.getByRole("button", { name: "前へ" }) as HTMLButtonElement).disabled).toBe(true);
   });
 
   it("hasNext=false のとき次へボタンが disabled になる", () => {
     render(<FacilitatorPagination {...defaultProps} hasNext={false} />);
 
-    expect((screen.getByRole("button", { name: "→" }) as HTMLButtonElement).disabled).toBe(true);
+    expect((screen.getByRole("button", { name: "次へ" }) as HTMLButtonElement).disabled).toBe(true);
   });
 
   it("hasPrev=true のとき前へボタンは disabled ではない", () => {
     render(<FacilitatorPagination {...defaultProps} hasPrev />);
 
-    expect((screen.getByRole("button", { name: "←" }) as HTMLButtonElement).disabled).toBe(false);
+    expect((screen.getByRole("button", { name: "前へ" }) as HTMLButtonElement).disabled).toBe(false);
   });
 
   it("hasNext=true のとき次へボタンは disabled ではない", () => {
     render(<FacilitatorPagination {...defaultProps} hasNext />);
 
-    expect((screen.getByRole("button", { name: "→" }) as HTMLButtonElement).disabled).toBe(false);
+    expect((screen.getByRole("button", { name: "次へ" }) as HTMLButtonElement).disabled).toBe(false);
   });
 
   it("前へボタン押下で currentPage - 1 が onPageChange に渡る", () => {
@@ -94,7 +94,7 @@ describe("FacilitatorPagination", () => {
       />,
     );
 
-    fireEvent.click(screen.getByRole("button", { name: "←" }));
+    fireEvent.click(screen.getByRole("button", { name: "前へ" }));
 
     expect(onPageChange).toHaveBeenCalledWith(2);
   });
@@ -111,7 +111,7 @@ describe("FacilitatorPagination", () => {
       />,
     );
 
-    fireEvent.click(screen.getByRole("button", { name: "→" }));
+    fireEvent.click(screen.getByRole("button", { name: "次へ" }));
 
     expect(onPageChange).toHaveBeenCalledWith(4);
   });
@@ -142,7 +142,7 @@ describe("FacilitatorPagination", () => {
       />,
     );
 
-    fireEvent.click(screen.getByRole("button", { name: "←" }));
+    fireEvent.click(screen.getByRole("button", { name: "前へ" }));
 
     expect(onPageChange).not.toHaveBeenCalled();
   });
@@ -158,7 +158,7 @@ describe("FacilitatorPagination", () => {
       />,
     );
 
-    fireEvent.click(screen.getByRole("button", { name: "→" }));
+    fireEvent.click(screen.getByRole("button", { name: "次へ" }));
 
     expect(onPageChange).not.toHaveBeenCalled();
   });

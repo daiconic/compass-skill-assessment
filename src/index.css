@@ -1,6 +1,8 @@
 :root {
     font-family: "Hiragino Sans", "Yu Gothic", sans-serif;
     color: #212423;
+    --color-primary: rgb(36 71 59);
+    --color-primary-muted: rgb(79 122 108);
 }
 
 * {
@@ -9,11 +11,12 @@
 
 body {
     margin: 0;
-    background: #f6f8f7;
+    background: #fff;
     color: #212423;
 }
 
 #root,
 .page {
     min-height: 100vh;
+    padding-bottom: 36px;
 }
