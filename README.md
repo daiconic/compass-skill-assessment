@@ -38,6 +38,12 @@ Lint:
 npm run lint
 ```
 
+Test:
+
+```bash
+npm test
+```
+
 本番ビルドの確認:
 
 ```bash
