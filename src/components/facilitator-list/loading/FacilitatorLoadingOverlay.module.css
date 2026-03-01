@@ -1,0 +1,16 @@
+.loadingOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgb(246 248 247 / 72%);
+}
+
+.loadingMessage {
+  margin: 0;
+  color: #4a5752;
+  font-size: 14px;
+}

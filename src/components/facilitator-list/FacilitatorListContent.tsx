@@ -1,7 +1,8 @@
-import type { SubmitEvent } from "react";
+import type { ReactNode, SubmitEvent } from "react";
 import type { SortKey } from "../../types";
 import styles from "./FacilitatorListContent.module.css";
 import { FacilitatorListHeader } from "./header/FacilitatorListHeader";
+import { FacilitatorLoadingOverlay } from "./loading/FacilitatorLoadingOverlay";
 import { FacilitatorPagination } from "./pagination/FacilitatorPagination";
 import { getNextSortState } from "./sortState";
 import { FacilitatorTable } from "./table/FacilitatorTable";
@@ -16,9 +17,6 @@ export function FacilitatorListContent() {
     search,
     sort,
   });
-
-  const totalPages = facilitators.status === "success" ? facilitators.totalPages : 1;
-  const hasNext = facilitators.status === "success" && page < facilitators.totalPages;
 
   function handleSearchSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -35,36 +33,79 @@ export function FacilitatorListContent() {
     void setSort(nextSortState);
   }
 
+  if (facilitators.status === "loading") {
+    return (
+      <FacilitatorListLayout
+        search={search}
+        onSearchSubmit={handleSearchSubmit}
+      >
+        <FacilitatorLoadingOverlay />
+      </FacilitatorListLayout>
+    );
+  }
+
+  if (facilitators.status === "error") {
+    return (
+      <FacilitatorListLayout
+        search={search}
+        onSearchSubmit={handleSearchSubmit}
+      >
+        <p className={styles.statusMessage}>先生一覧の取得に失敗しました。</p>
+      </FacilitatorListLayout>
+    );
+  }
+
+  if (facilitators.facilitators.length === 0) {
+    return (
+      <FacilitatorListLayout
+        search={search}
+        onSearchSubmit={handleSearchSubmit}
+      >
+        <p className={styles.statusMessage}>該当するデータはありません</p>
+      </FacilitatorListLayout>
+    );
+  }
+
+  return (
+    <FacilitatorListLayout search={search} onSearchSubmit={handleSearchSubmit}>
+      <FacilitatorTable
+        facilitators={facilitators.facilitators}
+        sortKey={sort?.key}
+        sortOrder={sort?.order}
+        onSortChange={handleSortChange}
+      />
+      <FacilitatorPagination
+        currentPage={page}
+        totalPages={facilitators.totalPages}
+        hasPrev={page > 1}
+        hasNext={page < facilitators.totalPages}
+        onPageChange={(nextPage) => {
+          void setPage(nextPage);
+        }}
+      />
+    </FacilitatorListLayout>
+  );
+}
+
+type FacilitatorListLayoutProps = {
+  search: string;
+  onSearchSubmit: (event: SubmitEvent<HTMLFormElement>) => void;
+  children: ReactNode;
+};
+
+function FacilitatorListLayout({
+  search,
+  onSearchSubmit,
+  children,
+}: FacilitatorListLayoutProps) {
   return (
     <main className={styles.content}>
       <FacilitatorListHeader
         title="先生一覧"
         searchDefaultValue={search}
-        onSearchSubmit={handleSearchSubmit}
+        onSearchSubmit={onSearchSubmit}
       />
-      {facilitators.status === "loading" ? (
-        <p className={styles.statusMessage}>読み込み中...</p>
-      ) : facilitators.status === "error" ? (
-        <p className={styles.statusMessage}>先生一覧の取得に失敗しました。</p>
-      ) : facilitators.facilitators.length === 0 ? (
-        <p className={styles.statusMessage}>表示できる先生がありません。</p>
-      ) : (
-        <FacilitatorTable
-          facilitators={facilitators.facilitators}
-          sortKey={sort?.key}
-          sortOrder={sort?.order}
-          onSortChange={handleSortChange}
-        />
-      )}
-      <FacilitatorPagination
-        currentPage={page}
-        totalPages={totalPages}
-        hasPrev={page > 1}
-        hasNext={hasNext}
-        onPageChange={(nextPage) => {
-          void setPage(nextPage);
-        }}
-      />
+      {children}
     </main>
   );
 }
