@@ -1,3 +1,4 @@
+import { Button } from "../../components/button/Button";
 import styles from "./FacilitatorErrorDialog.module.css";
 
 type FacilitatorErrorDialogProps = {
@@ -18,13 +19,7 @@ export function FacilitatorErrorDialog({
         <p id="facilitator-error-message" className={styles.message}>
           通信エラーが発生しました。
         </p>
-        <button
-          type="button"
-          className={styles.retryButton}
-          onClick={onRetry}
-        >
-          リトライ
-        </button>
+        <Button onClick={onRetry}>リトライ</Button>
       </section>
     </div>
   );

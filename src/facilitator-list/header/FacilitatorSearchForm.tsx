@@ -1,4 +1,5 @@
 import type { SubmitEvent } from "react";
+import { TextInput } from "../../components/text-input/TextInput";
 import styles from "./FacilitatorSearchForm.module.css";
 import searchIcon from "../../assets/icon-search.svg";
 
@@ -23,18 +24,17 @@ export function FacilitatorSearchForm({
 
   return (
     <form className={styles.searchForm} onSubmit={handleSubmit}>
-      <div className={styles.searchField}>
-        <input
-          className={styles.searchInput}
-          type="text"
-          name="search"
-          placeholder="名前、ログインIDで検索"
-          defaultValue={defaultValue}
-        />
-        <button type="submit" className={styles.searchButton} aria-label="検索">
-          <img className={styles.searchIcon} src={searchIcon} alt="" />
-        </button>
-      </div>
+      <TextInput
+        type="text"
+        name="search"
+        placeholder="名前、ログインIDで検索"
+        defaultValue={defaultValue}
+        endAdornment={
+          <button type="submit" className={styles.searchButton} aria-label="検索">
+            <img className={styles.searchIcon} src={searchIcon} alt="" />
+          </button>
+        }
+      />
     </form>
   );
 }

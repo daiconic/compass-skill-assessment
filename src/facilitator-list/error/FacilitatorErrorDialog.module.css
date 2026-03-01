@@ -23,14 +23,3 @@
   font-size: 14px;
   line-height: 1.5;
 }
-
-.retryButton {
-  height: 36px;
-  padding: 0 16px;
-  border: 0;
-  border-radius: 8px;
-  background: var(--color-primary);
-  color: #fff;
-  font-size: 14px;
-  cursor: pointer;
-}
