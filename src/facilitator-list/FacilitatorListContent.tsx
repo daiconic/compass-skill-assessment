@@ -38,6 +38,8 @@ export function FacilitatorListContent({
     void setSort(nextSortState);
   }
 
+  // APIのレスポンスタイムが早いためチラついて見える。
+  // テーブルの中だけでLoadingを表示するなど、ローディングの挙動は検討の余地がありそう。
   if (facilitators.status === "loading") {
     return (
       <div className={styles.loadingArea}>
