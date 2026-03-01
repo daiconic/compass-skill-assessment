@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { cleanup, render, screen } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import type { ComponentProps } from "react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { FacilitatorListContent } from "./FacilitatorListContent";
@@ -38,16 +38,25 @@ describe("FacilitatorListContent", () => {
     expect(screen.queryByRole("navigation", { name: "ページネーション" })).toBeNull();
   });
 
-  it("error 状態ではエラーメッセージを表示しページネーションは表示しない", () => {
+  it("error 状態ではエラーダイアログを表示しページネーションは表示しない", () => {
+    const retry = vi.fn();
+
     mockedUseFacilitators.mockReturnValue({
       status: "error",
       error: new Error("failed"),
+      retry,
     });
 
     render(<FacilitatorListContent {...defaultProps} />);
 
-    expect(screen.getByText("先生一覧の取得に失敗しました。")).toBeTruthy();
+    expect(screen.getByRole("alertdialog")).toBeTruthy();
+    expect(screen.getByText("通信エラーが発生しました。")).toBeTruthy();
+    expect(screen.getByRole("button", { name: "リトライ" })).toBeTruthy();
     expect(screen.queryByRole("navigation", { name: "ページネーション" })).toBeNull();
+
+    fireEvent.click(screen.getByRole("button", { name: "リトライ" }));
+
+    expect(retry).toHaveBeenCalledTimes(1);
   });
 
   it("success で該当データがない時はページネーションを表示しない", () => {

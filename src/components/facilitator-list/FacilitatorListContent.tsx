@@ -1,5 +1,6 @@
 import type { SortKey } from "../../types";
 import styles from "./FacilitatorListContent.module.css";
+import { FacilitatorErrorDialog } from "./error/FacilitatorErrorDialog";
 import { FacilitatorLoadingOverlay } from "./loading/FacilitatorLoadingOverlay";
 import { FacilitatorPagination } from "./pagination/FacilitatorPagination";
 import { getNextSortState } from "./sortState";
@@ -39,9 +40,7 @@ export function FacilitatorListContent({
   }
 
   if (facilitators.status === "error") {
-    return (
-      <p className={styles.statusMessage}>先生一覧の取得に失敗しました。</p>
-    );
+    return <FacilitatorErrorDialog onRetry={facilitators.retry} />;
   }
 
   if (facilitators.facilitators.length === 0) {

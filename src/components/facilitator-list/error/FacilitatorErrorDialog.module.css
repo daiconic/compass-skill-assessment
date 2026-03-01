@@ -1,0 +1,36 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgb(33 36 35 / 16%);
+}
+
+.dialog {
+  min-width: 320px;
+  padding: 24px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 12px 32px rgb(33 36 35 / 16%);
+}
+
+.message {
+  margin: 0 0 16px;
+  color: #212423;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.retryButton {
+  height: 36px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
