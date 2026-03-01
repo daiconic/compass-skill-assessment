@@ -1,11 +1,10 @@
-import type { SubmitEvent } from "react";
 import styles from "./FacilitatorListHeader.module.css";
 import { FacilitatorSearchForm } from "./FacilitatorSearchForm";
 
 type FacilitatorListHeaderProps = {
   title: string;
   searchDefaultValue: string;
-  onSearchSubmit: (event: SubmitEvent<HTMLFormElement>) => void;
+  onSearchSubmit: (query: string) => void;
 };
 
 export function FacilitatorListHeader({

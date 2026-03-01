@@ -1,10 +1,10 @@
-import type { ReactNode, SubmitEvent } from "react";
+import type { ReactNode } from "react";
 import styles from "./FacilitatorListContent.module.css";
 import { FacilitatorListHeader } from "./header/FacilitatorListHeader";
 
 type FacilitatorListLayoutProps = {
   search: string;
-  onSearchSubmit: (event: SubmitEvent<HTMLFormElement>) => void;
+  onSearchSubmit: (query: string) => void;
   children: ReactNode;
 };
 

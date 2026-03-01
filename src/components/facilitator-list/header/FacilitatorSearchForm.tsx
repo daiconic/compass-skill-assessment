@@ -4,7 +4,7 @@ import searchIcon from "../../../assets/icon-search.svg";
 
 type FacilitatorSearchFormProps = {
   defaultValue: string;
-  onSubmit: (event: SubmitEvent<HTMLFormElement>) => void;
+  onSubmit: (query: string) => void;
 };
 
 /** 検索フォーム */
@@ -12,9 +12,18 @@ export function FacilitatorSearchForm({
   defaultValue,
   onSubmit,
 }: FacilitatorSearchFormProps) {
+  function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const query = String(formData.get("search") ?? "");
+
+    onSubmit(query);
+  }
+
   return (
     <div className={styles.searchRow}>
-      <form className={styles.searchForm} onSubmit={onSubmit}>
+      <form className={styles.searchForm} onSubmit={handleSubmit}>
         <div className={styles.searchField}>
           <input
             className={styles.searchInput}
