@@ -1,5 +1,5 @@
 import type { SubmitEvent } from "react";
-import type { FacilitatorSortKey } from "../../api/facilitators";
+import type { SortKey } from "../../types";
 import styles from "./FacilitatorListContent.module.css";
 import { FacilitatorListHeader } from "./header/FacilitatorListHeader";
 import { FacilitatorPagination } from "./pagination/FacilitatorPagination";
@@ -29,7 +29,7 @@ export function FacilitatorListContent() {
     void setSearch(nextSearch);
   }
 
-  function handleSortChange(column: FacilitatorSortKey) {
+  function handleSortChange(column: SortKey) {
     const nextSortState = getNextSortState(sort, column);
 
     void setSort(nextSortState);

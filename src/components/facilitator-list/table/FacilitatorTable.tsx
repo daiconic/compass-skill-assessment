@@ -1,13 +1,16 @@
-import type { FacilitatorSortKey } from "../../../api/facilitators";
-import type { Facilitator } from "../../../types";
+import type {
+  Facilitator,
+  SortKey,
+  SortOrder,
+} from "../../../types";
 import angleDownIcon from "../../../assets/icon-angle-down.svg";
 import styles from "./FacilitatorTable.module.css";
 
 type FacilitatorTableProps = {
   facilitators: Facilitator[];
-  sortKey?: FacilitatorSortKey;
-  sortOrder?: "asc" | "desc";
-  onSortChange?: (column: FacilitatorSortKey) => void;
+  sortKey?: SortKey;
+  sortOrder?: SortOrder;
+  onSortChange?: (column: SortKey) => void;
 };
 
 export function FacilitatorTable({
@@ -76,10 +79,10 @@ function TableHeaderRow({
 
 type HeaderButtonProps = {
   label: string;
-  column: FacilitatorSortKey;
-  activeSortKey?: FacilitatorSortKey;
-  activeSortOrder?: "asc" | "desc";
-  onClick?: (column: FacilitatorSortKey) => void;
+  column: SortKey;
+  activeSortKey?: SortKey;
+  activeSortOrder?: SortOrder;
+  onClick?: (column: SortKey) => void;
 };
 
 function HeaderButton({

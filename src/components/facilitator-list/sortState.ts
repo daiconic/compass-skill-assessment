@@ -1,13 +1,13 @@
-import type { FacilitatorSortKey } from "../../api/facilitators";
+import type { SortKey, SortOrder } from "../../types";
 
 export type FacilitatorSort = {
-  key: FacilitatorSortKey;
-  order: "asc" | "desc";
+  key: SortKey;
+  order: SortOrder;
 };
 
 export function getNextSortState(
   current: FacilitatorSort | undefined,
-  clickedColumn: FacilitatorSortKey,
+  clickedColumn: SortKey,
 ): FacilitatorSort | undefined {
   if (current?.key !== clickedColumn) {
     return {

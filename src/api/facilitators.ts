@@ -1,14 +1,13 @@
 import { ApiError } from "./errors";
+import type { SortKey, SortOrder } from "../types";
 
 const FACILITATORS_ENDPOINT = "/api/facilitators";
-
-export type FacilitatorSortKey = "name" | "loginId";
 
 export type GetFacilitatorsParams = {
   page?: number;
   limit?: number;
-  sort?: FacilitatorSortKey;
-  order?: "asc" | "desc";
+  sort?: SortKey;
+  order?: SortOrder;
   search?: string;
 };
 
