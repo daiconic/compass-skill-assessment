@@ -1,3 +1,4 @@
+import { useCallback, useMemo } from "react";
 import {
   parseAsInteger,
   parseAsString,
@@ -30,36 +31,46 @@ export function useFacilitatorSearchParams(): UseFacilitatorSearchParamsResult {
     order: parseAsStringLiteral(["asc", "desc"] as const),
   });
 
-  function setPage(nextPage: number) {
-    return setParams({
-      page: normalizePage(nextPage),
-    });
-  }
+  const setPage = useCallback(
+    (nextPage: number) =>
+      setParams({
+        page: normalizePage(nextPage),
+      }),
+    [setParams],
+  );
 
-  function setSearch(rawValue: string) {
-    const normalized = rawValue.trim();
+  const setSearch = useCallback(
+    (rawValue: string) => {
+      const normalized = rawValue.trim();
 
-    return setParams({
-      page: 1,
-      search: normalized === "" ? null : normalized,
-    });
-  }
+      return setParams({
+        page: 1,
+        search: normalized === "" ? null : normalized,
+      });
+    },
+    [setParams],
+  );
 
-  function setSort(nextSort: FacilitatorSort | undefined) {
-    return setParams({
-      page: 1,
-      sort: nextSort?.key ?? null,
-      order: nextSort?.order ?? null,
-    });
-  }
+  const setSort = useCallback(
+    (nextSort: FacilitatorSort | undefined) =>
+      setParams({
+        page: 1,
+        sort: nextSort?.key ?? null,
+        order: nextSort?.order ?? null,
+      }),
+    [setParams],
+  );
 
-  const sort =
-    params.sort && params.order
-      ? {
-          key: params.sort,
-          order: params.order,
-        }
-      : undefined;
+  const sort = useMemo(
+    () =>
+      params.sort && params.order
+        ? {
+            key: params.sort,
+            order: params.order,
+          }
+        : undefined,
+    [params.order, params.sort],
+  );
 
   return {
     page: normalizePage(params.page),
