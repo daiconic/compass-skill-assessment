@@ -24,6 +24,53 @@ function renderSearchParamsHook(
 }
 
 describe("useFacilitatorSearchParams", () => {
+  describe("page", () => {
+    it("クエリパラメータがないときは 1 を返す", () => {
+      const { result } = renderSearchParamsHook();
+
+      expect(result.current.page).toBe(1);
+    });
+
+    it("初期のクエリパラメータの値を返す", () => {
+      const { result } = renderSearchParamsHook({
+        searchParams: "?page=3",
+      });
+
+      expect(result.current.page).toBe(3);
+    });
+
+    it("設定したときはクエリ文字列に保持する", async () => {
+      const onUrlUpdate = vi.fn<(event: UrlUpdateEvent) => void>();
+      const { result } = renderSearchParamsHook({
+        onUrlUpdate,
+      });
+
+      await act(async () => {
+        await result.current.setPage(2);
+      });
+
+      expect(onUrlUpdate).toHaveBeenCalledOnce();
+      expect(onUrlUpdate.mock.calls[0]?.[0].queryString).toBe("?page=2");
+      expect(result.current.page).toBe(2);
+    });
+
+    it("変更したときはクエリ文字列を更新する", async () => {
+      const onUrlUpdate = vi.fn<(event: UrlUpdateEvent) => void>();
+      const { result } = renderSearchParamsHook({
+        searchParams: "?page=2",
+        onUrlUpdate,
+      });
+
+      await act(async () => {
+        await result.current.setPage(4);
+      });
+
+      expect(onUrlUpdate).toHaveBeenCalledOnce();
+      expect(onUrlUpdate.mock.calls[0]?.[0].queryString).toBe("?page=4");
+      expect(result.current.page).toBe(4);
+    });
+  });
+
   it("search クエリパラメータがないときは空文字を返す", () => {
     const { result } = renderSearchParamsHook();
 
@@ -38,9 +85,10 @@ describe("useFacilitatorSearchParams", () => {
     expect(result.current.search).toBe("test-query");
   });
 
-  it("検索文字列を trim してクエリ文字列に保持する", async () => {
+  it("検索文字列を trim してクエリ文字列に保持し、page を 1 に戻す", async () => {
     const onUrlUpdate = vi.fn<(event: UrlUpdateEvent) => void>();
     const { result } = renderSearchParamsHook({
+      searchParams: "?page=3",
       onUrlUpdate,
     });
 
@@ -50,6 +98,7 @@ describe("useFacilitatorSearchParams", () => {
 
     expect(onUrlUpdate).toHaveBeenCalledOnce();
     expect(onUrlUpdate.mock.calls[0]?.[0].queryString).toBe("?search=木村");
+    expect(result.current.page).toBe(1);
   });
 
   it("空文字を適用したときは search クエリパラメータを削除する", async () => {
@@ -109,9 +158,10 @@ describe("useFacilitatorSearchParams", () => {
     });
   });
 
-  it("sort を設定したときは sort と order をクエリ文字列に保持する", async () => {
+  it("sort を設定したときは sort と order をクエリ文字列に保持し、page を 1 に戻す", async () => {
     const onUrlUpdate = vi.fn<(event: UrlUpdateEvent) => void>();
     const { result } = renderSearchParamsHook({
+      searchParams: "?page=4",
       onUrlUpdate,
     });
     const nextSort: FacilitatorSort = {
@@ -127,16 +177,17 @@ describe("useFacilitatorSearchParams", () => {
     expect(onUrlUpdate.mock.calls[0]?.[0].queryString).toBe(
       "?sort=name&order=asc",
     );
+    expect(result.current.page).toBe(1);
     expect(result.current.sort).toEqual({
       key: "name",
       order: "asc",
     });
   });
 
-  it("sort を変更したときは sort と order のクエリ文字列を更新する", async () => {
+  it("sort を変更したときは sort と order のクエリ文字列を更新し、page を 1 に戻す", async () => {
     const onUrlUpdate = vi.fn<(event: UrlUpdateEvent) => void>();
     const { result } = renderSearchParamsHook({
-      searchParams: "?sort=name&order=asc",
+      searchParams: "?page=2&sort=name&order=asc",
       onUrlUpdate,
     });
     const nextSort: FacilitatorSort = {
@@ -152,6 +203,7 @@ describe("useFacilitatorSearchParams", () => {
     expect(onUrlUpdate.mock.calls[0]?.[0].queryString).toBe(
       "?sort=name&order=desc",
     );
+    expect(result.current.page).toBe(1);
     expect(result.current.sort).toEqual({
       key: "name",
       order: "desc",

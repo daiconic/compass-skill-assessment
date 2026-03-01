@@ -1,9 +1,16 @@
-import { parseAsStringLiteral, useQueryState, useQueryStates } from "nuqs";
+import {
+  parseAsInteger,
+  parseAsString,
+  parseAsStringLiteral,
+  useQueryStates,
+} from "nuqs";
 import type { FacilitatorSort } from "./sortState";
 
 export type UseFacilitatorSearchParamsResult = {
+  page: number;
   search: string;
   sort?: FacilitatorSort;
+  setPage: (nextPage: number) => Promise<URLSearchParams>;
   setSearch: (rawValue: string) => Promise<URLSearchParams>;
   setSort: (nextSort: FacilitatorSort | undefined) => Promise<URLSearchParams>;
 };
@@ -12,38 +19,49 @@ export type UseFacilitatorSearchParamsResult = {
  * 検索条件をクエリパラメータで扱うhook
  */
 export function useFacilitatorSearchParams(): UseFacilitatorSearchParamsResult {
-  const [search, setQuerySearch] = useQueryState("search", {
-    defaultValue: "",
-  });
-  const [sortState, setQuerySortState] = useQueryStates({
+  const [params, setParams] = useQueryStates({
+    page: parseAsInteger.withDefault(1),
+    search: parseAsString.withDefault(""),
     sort: parseAsStringLiteral(["name", "loginId"] as const),
     order: parseAsStringLiteral(["asc", "desc"] as const),
   });
 
+  function setPage(nextPage: number) {
+    return setParams({
+      page: nextPage,
+    });
+  }
+
   function setSearch(rawValue: string) {
     const normalized = rawValue.trim();
 
-    return setQuerySearch(normalized === "" ? null : normalized);
+    return setParams({
+      page: 1,
+      search: normalized === "" ? null : normalized,
+    });
   }
 
   function setSort(nextSort: FacilitatorSort | undefined) {
-    return setQuerySortState({
+    return setParams({
+      page: 1,
       sort: nextSort?.key ?? null,
       order: nextSort?.order ?? null,
     });
   }
 
   const sort =
-    sortState.sort && sortState.order
+    params.sort && params.order
       ? {
-          key: sortState.sort,
-          order: sortState.order,
+          key: params.sort,
+          order: params.order,
         }
       : undefined;
 
   return {
-    search,
+    page: params.page,
+    search: params.search,
     sort,
+    setPage,
     setSearch,
     setSort,
   };

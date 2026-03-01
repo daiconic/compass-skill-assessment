@@ -1,5 +1,4 @@
 import type { SubmitEvent } from "react";
-import { useState } from "react";
 import type { FacilitatorSortKey } from "../../api/facilitators";
 import styles from "./FacilitatorListContent.module.css";
 import { FacilitatorListHeader } from "./header/FacilitatorListHeader";
@@ -10,18 +9,16 @@ import { useFacilitators } from "../../hooks/useFacilitators";
 import { useFacilitatorSearchParams } from "./useFacilitatorSearchParams";
 
 export function FacilitatorListContent() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const { search, sort, setSearch, setSort } = useFacilitatorSearchParams();
+  const { page, search, sort, setPage, setSearch, setSort } =
+    useFacilitatorSearchParams();
   const facilitators = useFacilitators({
-    page: currentPage,
+    page,
     search,
     sort,
   });
 
-  const totalPages =
-    facilitators.status === "success" ? facilitators.totalPages : 1;
-  const hasNext =
-    facilitators.status === "success" && currentPage < facilitators.totalPages;
+  const totalPages = facilitators.status === "success" ? facilitators.totalPages : 1;
+  const hasNext = facilitators.status === "success" && page < facilitators.totalPages;
 
   function handleSearchSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -29,14 +26,12 @@ export function FacilitatorListContent() {
     const formData = new FormData(event.currentTarget);
     const nextSearch = String(formData.get("search") ?? "");
 
-    setCurrentPage(1);
     void setSearch(nextSearch);
   }
 
   function handleSortChange(column: FacilitatorSortKey) {
     const nextSortState = getNextSortState(sort, column);
 
-    setCurrentPage(1);
     void setSort(nextSortState);
   }
 
@@ -62,11 +57,13 @@ export function FacilitatorListContent() {
         />
       )}
       <FacilitatorPagination
-        currentPage={currentPage}
+        currentPage={page}
         totalPages={totalPages}
-        hasPrev={currentPage > 1}
+        hasPrev={page > 1}
         hasNext={hasNext}
-        onPageChange={setCurrentPage}
+        onPageChange={(nextPage) => {
+          void setPage(nextPage);
+        }}
       />
     </main>
   );
