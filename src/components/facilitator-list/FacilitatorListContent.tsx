@@ -11,14 +11,11 @@ import { useFacilitatorSearchParams } from "./useFacilitatorSearchParams";
 
 export function FacilitatorListContent() {
   const [currentPage, setCurrentPage] = useState(1);
-  const [sortKey, setSortKey] = useState<FacilitatorSortKey | undefined>();
-  const [sortOrder, setSortOrder] = useState<"asc" | "desc" | undefined>();
-  const { search, setSearch } = useFacilitatorSearchParams();
+  const { search, sort, setSearch, setSort } = useFacilitatorSearchParams();
   const facilitators = useFacilitators({
     page: currentPage,
     search,
-    sort: sortKey,
-    order: sortOrder,
+    sort,
   });
 
   const totalPages =
@@ -37,17 +34,10 @@ export function FacilitatorListContent() {
   }
 
   function handleSortChange(column: FacilitatorSortKey) {
-    const nextSortState = getNextSortState(
-      {
-        sortKey,
-        sortOrder,
-      },
-      column,
-    );
+    const nextSortState = getNextSortState(sort, column);
 
     setCurrentPage(1);
-    setSortKey(nextSortState.sortKey);
-    setSortOrder(nextSortState.sortOrder);
+    void setSort(nextSortState);
   }
 
   return (
@@ -66,8 +56,8 @@ export function FacilitatorListContent() {
       ) : (
         <FacilitatorTable
           facilitators={facilitators.facilitators}
-          sortKey={sortKey}
-          sortOrder={sortOrder}
+          sortKey={sort?.key}
+          sortOrder={sort?.order}
           onSortChange={handleSortChange}
         />
       )}

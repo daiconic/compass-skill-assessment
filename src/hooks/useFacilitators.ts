@@ -1,14 +1,13 @@
 import useSWR from "swr";
 import { getFacilitators } from "../api/facilitators";
-import type { FacilitatorSortKey } from "../api/facilitators";
+import type { FacilitatorSort } from "../components/facilitator-list/sortState";
 import type { Facilitator } from "../types";
 
 const PAGE_SIZE = 20;
 
 export type UseFacilitatorsParams = {
   page: number;
-  sort?: FacilitatorSortKey;
-  order?: "asc" | "desc";
+  sort?: FacilitatorSort;
   search?: string;
 };
 
@@ -32,12 +31,18 @@ export type UseFacilitatorsResult =
 export function useFacilitators({
   page,
   sort,
-  order,
   search,
 }: UseFacilitatorsParams): UseFacilitatorsResult {
   const { data, error, isLoading } = useSWR(
-    ["facilitators", page, sort, order, search],
-    () => getFacilitators({ page, limit: PAGE_SIZE, sort, order, search }),
+    ["facilitators", page, sort?.key, sort?.order, search],
+    () =>
+      getFacilitators({
+        page,
+        limit: PAGE_SIZE,
+        sort: sort?.key,
+        order: sort?.order,
+        search,
+      }),
   );
 
   if (isLoading) {

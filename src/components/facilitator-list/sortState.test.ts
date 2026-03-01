@@ -3,9 +3,9 @@ import { getNextSortState } from "./sortState";
 
 describe("getNextSortState", () => {
   it("starts ascending when no sort is active", () => {
-    expect(getNextSortState({}, "name")).toEqual({
-      sortKey: "name",
-      sortOrder: "asc",
+    expect(getNextSortState(undefined, "name")).toEqual({
+      key: "name",
+      order: "asc",
     });
   });
 
@@ -13,14 +13,14 @@ describe("getNextSortState", () => {
     expect(
       getNextSortState(
         {
-          sortKey: "name",
-          sortOrder: "asc",
+          key: "name",
+          order: "asc",
         },
         "name",
       ),
     ).toEqual({
-      sortKey: "name",
-      sortOrder: "desc",
+      key: "name",
+      order: "desc",
     });
   });
 
@@ -28,29 +28,26 @@ describe("getNextSortState", () => {
     expect(
       getNextSortState(
         {
-          sortKey: "name",
-          sortOrder: "desc",
+          key: "name",
+          order: "desc",
         },
         "name",
       ),
-    ).toEqual({
-      sortKey: undefined,
-      sortOrder: undefined,
-    });
+    ).toBeUndefined();
   });
 
   it("switches to ascending when a different column is clicked", () => {
     expect(
       getNextSortState(
         {
-          sortKey: "name",
-          sortOrder: "desc",
+          key: "name",
+          order: "desc",
         },
         "loginId",
       ),
     ).toEqual({
-      sortKey: "loginId",
-      sortOrder: "asc",
+      key: "loginId",
+      order: "asc",
     });
   });
 });

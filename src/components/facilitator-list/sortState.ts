@@ -1,37 +1,34 @@
 import type { FacilitatorSortKey } from "../../api/facilitators";
 
-export type FacilitatorSortState = {
-  sortKey?: FacilitatorSortKey;
-  sortOrder?: "asc" | "desc";
+export type FacilitatorSort = {
+  key: FacilitatorSortKey;
+  order: "asc" | "desc";
 };
 
 export function getNextSortState(
-  current: FacilitatorSortState,
+  current: FacilitatorSort | undefined,
   clickedColumn: FacilitatorSortKey,
-): FacilitatorSortState {
-  if (current.sortKey !== clickedColumn) {
+): FacilitatorSort | undefined {
+  if (current?.key !== clickedColumn) {
     return {
-      sortKey: clickedColumn,
-      sortOrder: "asc",
+      key: clickedColumn,
+      order: "asc",
     };
   }
 
-  if (current.sortOrder === "asc") {
+  if (current.order === "asc") {
     return {
-      sortKey: clickedColumn,
-      sortOrder: "desc",
+      key: clickedColumn,
+      order: "desc",
     };
   }
 
-  if (current.sortOrder === "desc") {
-    return {
-      sortKey: undefined,
-      sortOrder: undefined,
-    };
+  if (current.order === "desc") {
+    return undefined;
   }
 
   return {
-    sortKey: clickedColumn,
-    sortOrder: "asc",
+    key: clickedColumn,
+    order: "asc",
   };
 }
