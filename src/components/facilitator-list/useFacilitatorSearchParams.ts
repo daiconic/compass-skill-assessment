@@ -15,6 +15,10 @@ export type UseFacilitatorSearchParamsResult = {
   setSort: (nextSort: FacilitatorSort | undefined) => Promise<URLSearchParams>;
 };
 
+function normalizePage(page: number) {
+  return Math.max(1, page);
+}
+
 /**
  * 検索条件をクエリパラメータで扱うhook
  */
@@ -28,7 +32,7 @@ export function useFacilitatorSearchParams(): UseFacilitatorSearchParamsResult {
 
   function setPage(nextPage: number) {
     return setParams({
-      page: nextPage,
+      page: normalizePage(nextPage),
     });
   }
 
@@ -58,7 +62,7 @@ export function useFacilitatorSearchParams(): UseFacilitatorSearchParamsResult {
       : undefined;
 
   return {
-    page: params.page,
+    page: normalizePage(params.page),
     search: params.search,
     sort,
     setPage,

@@ -39,6 +39,22 @@ describe("useFacilitatorSearchParams", () => {
       expect(result.current.page).toBe(3);
     });
 
+    it("初期値が 0 のときは 1 に正規化する", () => {
+      const { result } = renderSearchParamsHook({
+        searchParams: "?page=0",
+      });
+
+      expect(result.current.page).toBe(1);
+    });
+
+    it("初期値が負数のときは 1 に正規化する", () => {
+      const { result } = renderSearchParamsHook({
+        searchParams: "?page=-3",
+      });
+
+      expect(result.current.page).toBe(1);
+    });
+
     it("設定したときはクエリ文字列に保持する", async () => {
       const onUrlUpdate = vi.fn<(event: UrlUpdateEvent) => void>();
       const { result } = renderSearchParamsHook({
@@ -68,6 +84,36 @@ describe("useFacilitatorSearchParams", () => {
       expect(onUrlUpdate).toHaveBeenCalledOnce();
       expect(onUrlUpdate.mock.calls[0]?.[0].queryString).toBe("?page=4");
       expect(result.current.page).toBe(4);
+    });
+
+    it("0 を設定したときは 1 に正規化し、page クエリパラメータを省略する", async () => {
+      const onUrlUpdate = vi.fn<(event: UrlUpdateEvent) => void>();
+      const { result } = renderSearchParamsHook({
+        onUrlUpdate,
+      });
+
+      await act(async () => {
+        await result.current.setPage(0);
+      });
+
+      expect(onUrlUpdate).toHaveBeenCalledOnce();
+      expect(onUrlUpdate.mock.calls[0]?.[0].queryString).toBe("");
+      expect(result.current.page).toBe(1);
+    });
+
+    it("負数を設定したときは 1 に正規化し、page クエリパラメータを省略する", async () => {
+      const onUrlUpdate = vi.fn<(event: UrlUpdateEvent) => void>();
+      const { result } = renderSearchParamsHook({
+        onUrlUpdate,
+      });
+
+      await act(async () => {
+        await result.current.setPage(-5);
+      });
+
+      expect(onUrlUpdate).toHaveBeenCalledOnce();
+      expect(onUrlUpdate.mock.calls[0]?.[0].queryString).toBe("");
+      expect(result.current.page).toBe(1);
     });
   });
 
