@@ -7,15 +7,16 @@ import { FacilitatorPagination } from "./pagination/FacilitatorPagination";
 import { getNextSortState } from "./sortState";
 import { FacilitatorTable } from "./table/FacilitatorTable";
 import { useFacilitators } from "../../hooks/useFacilitators";
+import { useFacilitatorSearchParams } from "./useFacilitatorSearchParams";
 
 export function FacilitatorListContent() {
   const [currentPage, setCurrentPage] = useState(1);
-  const [appliedSearch, setAppliedSearch] = useState("");
   const [sortKey, setSortKey] = useState<FacilitatorSortKey | undefined>();
   const [sortOrder, setSortOrder] = useState<"asc" | "desc" | undefined>();
+  const { search, setSearch } = useFacilitatorSearchParams();
   const facilitators = useFacilitators({
     page: currentPage,
-    search: appliedSearch,
+    search,
     sort: sortKey,
     order: sortOrder,
   });
@@ -29,10 +30,10 @@ export function FacilitatorListContent() {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
-    const search = String(formData.get("search") ?? "");
+    const nextSearch = String(formData.get("search") ?? "");
 
     setCurrentPage(1);
-    setAppliedSearch(search);
+    void setSearch(nextSearch);
   }
 
   function handleSortChange(column: FacilitatorSortKey) {
@@ -53,6 +54,7 @@ export function FacilitatorListContent() {
     <main className={styles.content}>
       <FacilitatorListHeader
         title="先生一覧"
+        searchDefaultValue={search}
         onSearchSubmit={handleSearchSubmit}
       />
       {facilitators.status === "loading" ? (

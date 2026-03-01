@@ -3,11 +3,13 @@ import styles from "./FacilitatorSearchForm.module.css";
 import searchIcon from "../../../assets/icon-search.svg";
 
 type FacilitatorSearchFormProps = {
+  defaultValue: string;
   onSubmit: (event: SubmitEvent<HTMLFormElement>) => void;
 };
 
 /** 検索フォーム */
 export function FacilitatorSearchForm({
+  defaultValue,
   onSubmit,
 }: FacilitatorSearchFormProps) {
   return (
@@ -19,6 +21,7 @@ export function FacilitatorSearchForm({
             type="text"
             name="search"
             placeholder="名前、ログインIDで検索"
+            defaultValue={defaultValue}
           />
           <button
             type="submit"
