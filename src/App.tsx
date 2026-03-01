@@ -1,7 +1,7 @@
-import { FacilitatorListContent } from "./components/facilitator-list/FacilitatorListContent";
-import { FacilitatorListLayout } from "./components/facilitator-list/FacilitatorListLayout";
-import { useFacilitatorSearchParams } from "./components/facilitator-list/useFacilitatorSearchParams";
-import { Header } from "./components/header/Header";
+import { FacilitatorListContent } from "./facilitator-list/FacilitatorListContent";
+import { FacilitatorListLayout } from "./facilitator-list/FacilitatorListLayout";
+import { useFacilitatorSearchParams } from "./facilitator-list/useFacilitatorSearchParams";
+import { Header } from "./header/Header";
 
 function App() {
   const { page, setPage, sort, setSort, search, setSearch } =

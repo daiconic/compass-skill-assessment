@@ -1,6 +1,6 @@
 import styles from "./FacilitatorListHeader.module.css";
 import { FacilitatorSearchForm } from "./FacilitatorSearchForm";
-import TeacherIcon from "../../../assets/icon-teacher.svg";
+import TeacherIcon from "../../assets/icon-teacher.svg";
 
 type FacilitatorListHeaderProps = {
   searchDefaultValue: string;

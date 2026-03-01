@@ -2,7 +2,7 @@ import type {
   Facilitator,
   SortKey,
   SortOrder,
-} from "../../../types";
+} from "../../types";
 import styles from "./FacilitatorTable.module.css";
 import { FacilitatorTableHeader } from "./FacilitatorTableHeader";
 

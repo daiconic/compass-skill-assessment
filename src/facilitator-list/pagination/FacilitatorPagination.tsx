@@ -1,4 +1,4 @@
-import angleDownIcon from "../../../assets/icon-angle-down.svg";
+import angleDownIcon from "../../assets/icon-angle-down.svg";
 import styles from "./FacilitatorPagination.module.css";
 
 type FacilitatorPaginationProps = {

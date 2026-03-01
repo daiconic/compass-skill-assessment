@@ -1,4 +1,4 @@
-import type { SortKey } from "../../types";
+import type { SortKey } from "../types";
 import styles from "./FacilitatorListContent.module.css";
 import { FacilitatorErrorDialog } from "./error/FacilitatorErrorDialog";
 import { FacilitatorLoadingOverlay } from "./loading/FacilitatorLoadingOverlay";
@@ -9,7 +9,7 @@ import type { UseFacilitatorSearchParamsResult } from "./useFacilitatorSearchPar
 import {
   FACILITATOR_PAGE_SIZE,
   useFacilitators,
-} from "../../hooks/useFacilitators";
+} from "../hooks/useFacilitators";
 
 type FacilitatorListContentProps = Omit<
   UseFacilitatorSearchParamsResult,

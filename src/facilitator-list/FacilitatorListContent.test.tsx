@@ -3,9 +3,9 @@ import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import type { ComponentProps } from "react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { FacilitatorListContent } from "./FacilitatorListContent";
-import { useFacilitators } from "../../hooks/useFacilitators";
+import { useFacilitators } from "../hooks/useFacilitators";
 
-vi.mock("../../hooks/useFacilitators", () => ({
+vi.mock("../hooks/useFacilitators", () => ({
   FACILITATOR_PAGE_SIZE: 20,
   useFacilitators: vi.fn(),
 }));

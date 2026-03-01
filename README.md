@@ -48,9 +48,8 @@ npm run preview
 
 ```text
 src/
-  components/
-    header/                 # ヘッダー
-    teacher-list/           # 一覧ヘッダー、テーブル、ページネーション
+  header/                   # ヘッダー
+  facilitator-list/         # 一覧ヘッダー、テーブル、ページネーション
   assets/                   # ロゴ・アイコン
   types.ts                  # 型定義
   App.tsx                   # 画面全体の組み立て

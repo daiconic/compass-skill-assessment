@@ -1,6 +1,6 @@
 import type { SubmitEvent } from "react";
 import styles from "./FacilitatorSearchForm.module.css";
-import searchIcon from "../../../assets/icon-search.svg";
+import searchIcon from "../../assets/icon-search.svg";
 
 type FacilitatorSearchFormProps = {
   defaultValue: string;

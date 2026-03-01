@@ -1,6 +1,6 @@
 import styles from "./Header.module.css";
-import logo from "../../assets/logo-white.svg";
-import AccountIcon from "../../assets/icon-account.svg";
+import logo from "../assets/logo-white.svg";
+import AccountIcon from "../assets/icon-account.svg";
 
 export function Header() {
   return (

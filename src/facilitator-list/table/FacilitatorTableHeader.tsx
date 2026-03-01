@@ -1,5 +1,5 @@
-import type { SortKey, SortOrder } from "../../../types";
-import angleDownIcon from "../../../assets/icon-angle-down.svg";
+import type { SortKey, SortOrder } from "../../types";
+import angleDownIcon from "../../assets/icon-angle-down.svg";
 import styles from "./FacilitatorTable.module.css";
 
 type FacilitatorTableHeaderProps = {

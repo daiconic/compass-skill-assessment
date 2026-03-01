@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import useSWR from "swr";
 import { getFacilitators } from "../api/facilitators";
-import type { FacilitatorSort } from "../components/facilitator-list/sortState";
+import type { FacilitatorSort } from "../facilitator-list/sortState";
 import type { Facilitator } from "../types";
 
 export const FACILITATOR_PAGE_SIZE = 20;

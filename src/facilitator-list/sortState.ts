@@ -1,4 +1,4 @@
-import type { SortKey, SortOrder } from "../../types";
+import type { SortKey, SortOrder } from "../types";
 
 export type FacilitatorSort = {
   key: SortKey;
