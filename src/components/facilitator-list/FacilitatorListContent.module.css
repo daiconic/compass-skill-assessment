@@ -4,6 +4,11 @@
     padding: 30px 56px;
 }
 
+.loadingArea {
+    position: relative;
+    min-height: 240px;
+}
+
 .statusMessage {
     margin: 16px 0;
     color: #4a5752;

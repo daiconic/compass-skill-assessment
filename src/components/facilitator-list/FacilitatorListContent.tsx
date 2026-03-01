@@ -36,7 +36,11 @@ export function FacilitatorListContent({
   }
 
   if (facilitators.status === "loading") {
-    return <FacilitatorLoadingOverlay />;
+    return (
+      <div className={styles.loadingArea}>
+        <FacilitatorLoadingOverlay />
+      </div>
+    );
   }
 
   if (facilitators.status === "error") {
