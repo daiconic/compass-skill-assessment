@@ -58,3 +58,7 @@ npm test
 ```bash
 npx tsc
 ```
+
+## その他・備考
+
+- Codex CLI + ZeplinのMCPを使用して実装しました。
