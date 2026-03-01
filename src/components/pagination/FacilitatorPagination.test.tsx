@@ -8,11 +8,6 @@ import { FacilitatorPagination } from "./FacilitatorPagination";
 const defaultProps: ComponentProps<typeof FacilitatorPagination> = {
   currentPage: 3,
   totalPages: 5,
-  totalCount: 120,
-  firstVisibleItem: 41,
-  lastVisibleItem: 60,
-  hasPrev: true,
-  hasNext: true,
   onPageChange: vi.fn(),
 };
 
@@ -49,14 +44,8 @@ describe("FacilitatorPagination", () => {
     ).toBeTruthy();
   });
 
-  it("表示中件数の文言を表示する", () => {
-    render(<FacilitatorPagination {...defaultProps} />);
-
-    expect(screen.getByText("120件中 41〜60件を表示")).toBeTruthy();
-  });
-
   it("hasPrev=false のとき前へボタンが disabled になる", () => {
-    render(<FacilitatorPagination {...defaultProps} hasPrev={false} />);
+    render(<FacilitatorPagination {...defaultProps} currentPage={1} />);
 
     expect(
       (screen.getByRole("button", { name: "前へ" }) as HTMLButtonElement)
@@ -65,7 +54,7 @@ describe("FacilitatorPagination", () => {
   });
 
   it("hasNext=false のとき次へボタンが disabled になる", () => {
-    render(<FacilitatorPagination {...defaultProps} hasNext={false} />);
+    render(<FacilitatorPagination {...defaultProps} currentPage={5} />);
 
     expect(
       (screen.getByRole("button", { name: "次へ" }) as HTMLButtonElement)
@@ -74,7 +63,7 @@ describe("FacilitatorPagination", () => {
   });
 
   it("hasPrev=true のとき前へボタンは disabled ではない", () => {
-    render(<FacilitatorPagination {...defaultProps} hasPrev />);
+    render(<FacilitatorPagination {...defaultProps} currentPage={2} />);
 
     expect(
       (screen.getByRole("button", { name: "前へ" }) as HTMLButtonElement)
@@ -83,7 +72,7 @@ describe("FacilitatorPagination", () => {
   });
 
   it("hasNext=true のとき次へボタンは disabled ではない", () => {
-    render(<FacilitatorPagination {...defaultProps} hasNext />);
+    render(<FacilitatorPagination {...defaultProps} currentPage={4} />);
 
     expect(
       (screen.getByRole("button", { name: "次へ" }) as HTMLButtonElement)
@@ -98,7 +87,6 @@ describe("FacilitatorPagination", () => {
       <FacilitatorPagination
         {...defaultProps}
         currentPage={3}
-        hasPrev
         onPageChange={onPageChange}
       />,
     );
@@ -115,7 +103,6 @@ describe("FacilitatorPagination", () => {
       <FacilitatorPagination
         {...defaultProps}
         currentPage={3}
-        hasNext
         onPageChange={onPageChange}
       />,
     );
@@ -143,7 +130,7 @@ describe("FacilitatorPagination", () => {
     render(
       <FacilitatorPagination
         {...defaultProps}
-        hasPrev={false}
+        currentPage={1}
         onPageChange={onPageChange}
       />,
     );
@@ -159,7 +146,7 @@ describe("FacilitatorPagination", () => {
     render(
       <FacilitatorPagination
         {...defaultProps}
-        hasNext={false}
+        currentPage={5}
         onPageChange={onPageChange}
       />,
     );

@@ -1,8 +1,8 @@
 import type { SortKey } from "../types";
 import styles from "./FacilitatorListContent.module.css";
+import { FacilitatorPagination } from "../components/pagination/FacilitatorPagination";
 import { FacilitatorErrorDialog } from "./error/FacilitatorErrorDialog";
 import { FacilitatorLoadingOverlay } from "./loading/FacilitatorLoadingOverlay";
-import { FacilitatorPagination } from "./pagination/FacilitatorPagination";
 import { getNextSortState } from "./sortState";
 import { FacilitatorTable } from "./table/FacilitatorTable";
 import type { UseFacilitatorSearchParamsResult } from "./useFacilitatorSearchParams";
@@ -16,6 +16,9 @@ type FacilitatorListContentProps = Omit<
   "setSearch"
 >;
 
+/**
+ * 先生一覧の一覧部分
+ */
 export function FacilitatorListContent({
   page,
   setPage,
@@ -51,8 +54,11 @@ export function FacilitatorListContent({
     return <p className={styles.statusMessage}>該当するデータはありません</p>;
   }
 
+  /** 表示されている最初の件数 */
   const firstVisibleItem = (page - 1) * FACILITATOR_PAGE_SIZE + 1;
-  const lastVisibleItem = firstVisibleItem + facilitators.facilitators.length - 1;
+  /** 表示されている最後の件数 */
+  const lastVisibleItem =
+    firstVisibleItem + facilitators.facilitators.length - 1;
 
   return (
     <>
@@ -62,18 +68,18 @@ export function FacilitatorListContent({
         sortOrder={sort?.order}
         onSortChange={handleSortChange}
       />
-      <FacilitatorPagination
-        currentPage={page}
-        totalPages={facilitators.totalPages}
-        totalCount={facilitators.totalCount}
-        firstVisibleItem={firstVisibleItem}
-        lastVisibleItem={lastVisibleItem}
-        hasPrev={page > 1}
-        hasNext={page < facilitators.totalPages}
-        onPageChange={(nextPage) => {
-          void setPage(nextPage);
-        }}
-      />
+      <div className={styles.paginationRow}>
+        <p className={styles.paginationSummary}>
+          {`${facilitators.totalCount}件中 ${firstVisibleItem}〜${lastVisibleItem}件を表示`}
+        </p>
+        <FacilitatorPagination
+          currentPage={page}
+          totalPages={facilitators.totalPages}
+          onPageChange={(nextPage) => {
+            void setPage(nextPage);
+          }}
+        />
+      </div>
     </>
   );
 }
