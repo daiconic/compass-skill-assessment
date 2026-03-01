@@ -5,11 +5,11 @@ import { FacilitatorErrorDialog } from "./error/FacilitatorErrorDialog";
 import { FacilitatorLoadingOverlay } from "./loading/FacilitatorLoadingOverlay";
 import { getNextSortState } from "./sortState";
 import { FacilitatorTable } from "./table/FacilitatorTable";
-import type { UseFacilitatorSearchParamsResult } from "./useFacilitatorSearchParams";
 import {
   FACILITATOR_PAGE_SIZE,
   useFacilitators,
 } from "../hooks/useFacilitators";
+import type { UseFacilitatorSearchParamsResult } from "../hooks/useFacilitatorSearchParams";
 
 type FacilitatorListContentProps = Omit<
   UseFacilitatorSearchParamsResult,
@@ -61,7 +61,7 @@ export function FacilitatorListContent({
     firstVisibleItem + facilitators.facilitators.length - 1;
 
   return (
-    <>
+    <div>
       <FacilitatorTable
         facilitators={facilitators.facilitators}
         sortKey={sort?.key}
@@ -80,6 +80,6 @@ export function FacilitatorListContent({
           }}
         />
       </div>
-    </>
+    </div>
   );
 }

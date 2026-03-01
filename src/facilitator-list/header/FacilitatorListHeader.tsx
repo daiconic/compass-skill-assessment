@@ -7,6 +7,11 @@ type FacilitatorListHeaderProps = {
   onSearchSubmit: (query: string) => void;
 };
 
+/**
+ * 先生一覧のヘッダー
+ *
+ * 検索のフォームを含む
+ */
 export function FacilitatorListHeader({
   searchDefaultValue,
   onSearchSubmit,

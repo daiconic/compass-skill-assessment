@@ -39,21 +39,21 @@ src/
   api/                    # API クライアント
   assets/                 # アイコン等の静的ファイル
   components/             # 汎用コンポーネント
-    pagination/          # ページネーション
   header/                 # アプリ共通ヘッダー
   facilitator-list/       # 先生一覧画面の UI
     error/                # エラーダイアログ
     header/               # 検索フォーム、一覧ヘッダー
     loading/              # ローディング表示
     table/                # 一覧テーブル
-  hooks/                  # データ取得 hook
+  hooks/                  # 画面横断で使う hook
   types.ts                # 共通の型
   App.tsx                 # 画面全体の組み立て、URLStateの管理
 ```
 
 ## 3. 責務分離
 
-- `App.tsx`: 画面全体の組み立てと、各stateの受け渡し
-- `useFacilitatorSearchParams`: クエリパラメータの読み書きと正規化
-- `useFacilitators`: APIデータの取得
-- `facilitator-list`:一覧画面の描画
+- `App.tsx`: 画面全体の組み立てと、各 state の受け渡し
+- `hooks/useFacilitatorSearchParams`: クエリパラメータの読み書きと正規化
+- `hooks/useFacilitators`: API データの取得
+- `components`: 画面をまたいで使える共通 UI
+- `facilitator-list`: 一覧画面の描画

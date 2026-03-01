@@ -5,7 +5,7 @@ import {
   parseAsStringLiteral,
   useQueryStates,
 } from "nuqs";
-import type { FacilitatorSort } from "./sortState";
+import type { FacilitatorSort } from "../facilitator-list/sortState";
 
 export type UseFacilitatorSearchParamsResult = {
   page: number;

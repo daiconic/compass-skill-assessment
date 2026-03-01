@@ -3,7 +3,7 @@
 import { act, renderHook } from "@testing-library/react";
 import { NuqsTestingAdapter, type UrlUpdateEvent } from "nuqs/adapters/testing";
 import { describe, expect, it, vi } from "vitest";
-import type { FacilitatorSort } from "./sortState";
+import type { FacilitatorSort } from "../facilitator-list/sortState";
 import { useFacilitatorSearchParams } from "./useFacilitatorSearchParams";
 
 function renderSearchParamsHook(

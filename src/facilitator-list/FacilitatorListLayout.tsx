@@ -8,6 +8,9 @@ type FacilitatorListLayoutProps = {
   children: ReactNode;
 };
 
+/**
+ * 先生一覧の一覧部分のヘッダーを含むレイアウト
+ */
 export function FacilitatorListLayout({
   search,
   onSearchSubmit,

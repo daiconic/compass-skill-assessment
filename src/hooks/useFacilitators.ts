@@ -66,7 +66,6 @@ export function useFacilitators({
     };
   }
 
-  // keyがnullishになることはないので、データは必ず存在する
   return {
     status: "success",
     facilitators: data.data,
